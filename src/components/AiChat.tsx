@@ -155,7 +155,7 @@ reply = "It was successfully sell over 30 products, It focuses on pushing the bo
               <input
                 className="ai-input"
                 type="text"
-                placeholder="Ask me anything about Shanto..."
+                placeholder="Ask me anything about This Website..."
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && sendMsg(input)}

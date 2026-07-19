@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import {FaEye, FaEyeSlash } from "react-icons/fa";
+import { GrGoogle } from "react-icons/gr";
 
 const SignIn = () => {
     const router = useRouter();
@@ -39,7 +40,17 @@ router.push("/");
       console.log(err);
     }
  };  
- 
+ const handleGoogleSignIn = async () => {
+  try {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  } catch (err) {
+    toast.error("❌ Google Login Failed!");
+    console.log(err);
+  }
+};
 const [isShowPassword, setIsShowPassword] = useState(false);
     return (
       <div className="min-h-screen py-12 px-4 flex items-center justify-center">
@@ -70,6 +81,11 @@ const [isShowPassword, setIsShowPassword] = useState(false);
                               <Check /> {loading ? "Signing In..." : "SignIn"}
                               </Button>
                           </div>
+                          <p className="text-center text-2xl text-purple-500">OR</p>
+<Button onClick={handleGoogleSignIn} className="w-full bg-purple-500">
+        <GrGoogle />
+        Sign In With Google
+      </Button>
                       </Form>
                   </Card>
               </div>

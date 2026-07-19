@@ -8,6 +8,7 @@ import { FaCamera, FaEye, FaEyeSlash, FaUser } from "react-icons/fa";
 import { Check } from "@gravity-ui/icons";
 import { authClient } from "@/lib/auth-client";
 import { uploadImage } from "../../utils/uploadImage";
+import { GrGoogle } from 'react-icons/gr';
 
 const SignUp = () => {
     const router = useRouter();
@@ -89,7 +90,17 @@ const SignUp = () => {
             setLoading(false);
         }
     };
-
+const handleGoogleSignIn = async () => {
+  try {
+    await authClient.signIn.social({
+      provider: "google",
+      callbackURL: "/",
+    });
+  } catch (err) {
+    toast.error("❌ Google Login Failed!");
+    console.log(err);
+  }
+};
     return (
         <div className="min-h-screen py-12 px-4 flex items-center justify-center">
 <Card className="w-full max-w-xl bg-gray-500 border border-white/5 py-8 px-6 sm:px-8 shadow-2xl rounded-2xl">
@@ -161,6 +172,11 @@ const SignUp = () => {
                             <Check /> {loading ? "Signing Up..." : "SignUp"}
                         </Button>
                     </div>
+<p className="text-center text-2xl text-purple-500">OR</p>
+<Button onClick={handleGoogleSignIn} className="w-full bg-purple-500">
+        <GrGoogle />
+        Sign Up With Google
+      </Button>                    
                 </Form>
             </Card>
         </div>
